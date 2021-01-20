@@ -104,6 +104,10 @@ public class daoUsuario {
         }
         return null;
     }
+
+    public boolean deleteUsuario(int id){
+        return (sql.delete("usuario","id="+id,null)>0);
+    }
 }
 
 

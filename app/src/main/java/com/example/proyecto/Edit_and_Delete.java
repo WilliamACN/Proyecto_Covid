@@ -10,10 +10,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class Edit_and_Delete extends AppCompatActivity implements View.OnClickListener{
 
+
+    TextView myId;
     Button botonElminar;
     SQLiteDatabase sql;
     Usuario u;
@@ -27,13 +33,16 @@ public class Edit_and_Delete extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.edit_and_delete);
 
         botonElminar = (Button) findViewById(R.id.buttonEliminar);
-
         botonElminar.setOnClickListener(this);
+        myId = (TextView) findViewById(R.id.myId);
 
         Bundle b=getIntent().getExtras();
         id=b.getInt("id");
         dao=new daoUsuario(this);
         u=dao.getUserById(id);
+
+        myId.setText(""+ id);
+
 
 
     }
@@ -45,12 +54,11 @@ public class Edit_and_Delete extends AppCompatActivity implements View.OnClickLi
                 AlertDialog.Builder b = new AlertDialog.Builder(this);
                 b.setMessage("¿Está seguro que desea eliminar la cuenta? UnU");
                 b.setCancelable(false);
+                //Toast.makeText(this,"HOLAAAA",Toast.LENGTH_LONG).show();
                 b.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (deleteUsuario(id)){
-                            Log.d("ELIM","Logré eliminar el usuario xd");
-                            Toast.makeText(Edit_and_Delete.this,"Usuario eliminado",Toast.LENGTH_LONG).show();
+                        if (dao.deleteUsuario(id)){
                             Intent i5 = new Intent(Edit_and_Delete.this, Login.class);
                             startActivity(i5);
                             finish();
@@ -71,9 +79,7 @@ public class Edit_and_Delete extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public boolean deleteUsuario(int id){
-        return (sql.delete("usuario","id="+id,null)>0);
-    }
+
 
 
 }

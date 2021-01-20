@@ -12,13 +12,14 @@ public class daoUsuario {
     Usuario user;
     ArrayList<Usuario> lista;
     SQLiteDatabase sql;
-    String db="CovidDB2";
-    String tabla="create table if not exists usuario(id integer primary key autoincrement, nombre text, correo text, pass text)";
+    String db="CovidDBFinal";
+    String tabla="create table if not exists usuario(id integer primary key autoincrement, nombre text, correo text, pass text, direcc text, gen text)";
 
     public daoUsuario(Context c){
     this.c=c;
     sql=c.openOrCreateDatabase(db,c.MODE_PRIVATE,null);
     sql.execSQL(tabla);
+    
     user=new Usuario();
     }
 //hola hola
@@ -28,6 +29,8 @@ public class daoUsuario {
         ct.put("nombre",user.getNombre());
         ct.put("correo",user.getCorreo());
         ct.put("pass",user.getPassword());
+        ct.put("direcc", user.getDireccion());
+        ct.put("gen", user.getGenero());
         return (sql.insert("usuario",null,ct)>0);
 
 
@@ -59,6 +62,8 @@ public class daoUsuario {
                 u.setNombre(cr.getString(1));
                 u.setCorreo(cr.getString(2));
                 u.setPassword(cr.getString(3));
+                u.setDireccion(cr.getString(4));
+                u.setGenero(cr.getString(5));
                 lista.add(u);
             }while(cr.moveToNext());
 

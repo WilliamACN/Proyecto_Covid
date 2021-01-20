@@ -18,12 +18,16 @@ daoUsuario dao;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
         email=(EditText)findViewById(R.id.Email);
         pass=(EditText)findViewById(R.id.Pass);
+
         buttonIngreso=(Button)findViewById(R.id.buttonIngreso);
         buttonRegistro=(Button)findViewById(R.id.buttonRegistro);
+
         buttonIngreso.setOnClickListener(this);
         buttonRegistro.setOnClickListener(this);
+
         dao=new daoUsuario(this);
     }
 

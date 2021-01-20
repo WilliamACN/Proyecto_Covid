@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -24,9 +23,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
 
-        buttonView = (Button) findViewById(R.id.buttonVistaBD);
+        buttonView = (Button) findViewById(R.id.buttonEdit);
         buttonSalir = (Button) findViewById(R.id.buttonSalir);
+
         NombreUsuario = (TextView) findViewById(R.id.NombreUsuario);
+
         buttonView.setOnClickListener(this);
         buttonSalir.setOnClickListener(this);
 
@@ -47,8 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i3);
                 break;
 
-            case R.id.buttonVistaBD:
-                Intent i4 = new Intent(MainActivity.this, View.class);
+            case R.id.buttonEdit:
+                Intent i4 = new Intent(MainActivity.this, Edit_and_Delete.class);
+                i4.putExtra("id",u.getId());
                 startActivity(i4);
                 break;
 

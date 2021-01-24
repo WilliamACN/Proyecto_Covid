@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.botonGps:
                 Intent my_gps = new Intent(MainActivity.this, ObtnUbicacion.class);
+                my_gps.putExtra("id",id);
                 startActivity(my_gps);
                 break;
         }

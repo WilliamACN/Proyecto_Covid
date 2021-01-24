@@ -63,6 +63,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
                 u.setCorreo(correo.getText().toString());
                 u.setPassword(pass.getText().toString());
                 u.setDireccion(dirr.getText().toString());
+                u.setContagiado("Probabilidad Baja");
 
                 if (masculino.isChecked()){
                     u.setGenero("Masculino");
@@ -77,8 +78,6 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
                     }
 
                 if (validar()&&gen&&valCorreo) {
-
-
                     if (!u.isNull()) {
                         Toast.makeText(this, "ERROR: Campos vacios", Toast.LENGTH_LONG).show();
                     } else if (dao.insertUsuario(u)) {

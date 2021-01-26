@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button buttonView, buttonSalir, botonGps;
+    Button buttonView, buttonSalir, botonGps, botonSintomas;
     TextView NombreUsuario;
     int id=0;
     Usuario u;
@@ -26,12 +26,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonView = (Button) findViewById(R.id.buttonEdit);
         buttonSalir = (Button) findViewById(R.id.buttonSalir);
         botonGps = (Button) findViewById(R.id.botonGps);
+        botonSintomas = (Button) findViewById(R.id.buttonSintomas);
 
         NombreUsuario = (TextView) findViewById(R.id.NombreUsuario);
 
         buttonView.setOnClickListener(this);
         buttonSalir.setOnClickListener(this);
         botonGps.setOnClickListener(this);
+        botonSintomas.setOnClickListener(this);
 
 
         Bundle b=getIntent().getExtras();
@@ -46,6 +48,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.buttonSintomas:
+                Intent sintomas = new Intent(MainActivity.this, TengoSintomas.class);
+                sintomas.putExtra("id",u.getId());
+                startActivity(sintomas);
+                break;
             case R.id.buttonSalir:
                 Intent i3 = new Intent(MainActivity.this, Login.class);
                 startActivity(i3);

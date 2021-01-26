@@ -46,8 +46,6 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
 
         dao = new daoUsuario(this);
 
-
-
     }
 
     @Override

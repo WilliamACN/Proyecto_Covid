@@ -39,6 +39,18 @@ public class daoUsuario {
         }
     }
 
+    public boolean updateUsuario(Usuario user){
+        ContentValues ct = new ContentValues();
+        ct.put("nombre", user.getNombre());
+        ct.put("correo", user.getCorreo());
+        ct.put("pass", user.getPassword());
+        ct.put("direcc", user.getDireccion());
+        ct.put("gen", user.getGenero());
+        ct.put("contagiado", user.getContagiado());
+        return (sql.update("usuario", ct, "id="+user.getId(), null) > 0);
+
+    }
+
     public int buscar(String u) {
         int x = 0;
         lista = selectUsuarios();

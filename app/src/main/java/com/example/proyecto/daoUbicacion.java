@@ -65,6 +65,11 @@ public class daoUbicacion {
         return null;
     }
 
+    public ArrayList<Ubicacion> getDatosUbi(int id) {
+        listaUbicacion = selectUbicacion();
+        return listaUbicacion;
+    }
+
 
 
 }

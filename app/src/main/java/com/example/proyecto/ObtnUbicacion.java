@@ -37,7 +37,7 @@ public class ObtnUbicacion extends AppCompatActivity implements View.OnClickList
     private boolean actualizar_ubicacion;
     int id;
     LocationManager locationManager;
-    Button finViaje, obtnData;
+    Button finViaje, obtnData, contagio;
     TextView ubicaciones;
 
     //variables de otras clases
@@ -61,12 +61,14 @@ public class ObtnUbicacion extends AppCompatActivity implements View.OnClickList
 
         finViaje = (Button) findViewById(R.id.FinViaje);
         obtnData = (Button) findViewById(R.id.ObtnInfo);
+        contagio = (Button) findViewById(R.id.contagio);
 
         ubicaciones = (TextView) findViewById(R.id.my_ubicar);
 
         actualizar_ubicacion = true;
         finViaje.setOnClickListener(this);
         obtnData.setOnClickListener(this);
+        contagio.setOnClickListener(this);
 
         Bundle b=getIntent().getExtras();
         id=b.getInt("id");
@@ -163,15 +165,14 @@ public class ObtnUbicacion extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.contagio:
                 //validar contagio
-                validarContagio();
-                //Luego mandamos al activity
+                Intent contagio = new Intent(ObtnUbicacion.this, Contagio.class);
+                contagio.putExtra("id",user.getId());
+                startActivity(contagio);
                 break;
         }
     }
 
-    public void validarContagio(){
 
-    }
 
     public void imprimirUbicaciones() {
         String dato = "Tus ubicaciones del día son: \n";
@@ -180,7 +181,7 @@ public class ObtnUbicacion extends AppCompatActivity implements View.OnClickList
 
         for (int i = 0; i < my_datos.size(); i++) {
             dato += "Ubicación: " + my_datos.get(i).hora + " Long: " + my_datos.get(i).longitud + " Latitud: " + my_datos.get(i).latitud + "\n";
-            ubicacion_db += "Long:" + my_datos.get(i).longitud + "," + "Lat:" + my_datos.get(i).latitud + "," + "Hr:"+ my_datos.get(i).hora + "||";
+            ubicacion_db += "" + my_datos.get(i).longitud + ";" + "" + my_datos.get(i).latitud + ";" + "Hr:"+ my_datos.get(i).hora + "--";
         }
         my_ubicacion.setId(id);
         my_ubicacion.setUbicacionDatos(ubicacion_db);
@@ -198,5 +199,6 @@ public class ObtnUbicacion extends AppCompatActivity implements View.OnClickList
 
         ubicaciones.setText(dato);
         actualizar_ubicacion = false;
+
     }
 }

@@ -24,7 +24,9 @@ public class Contagio extends AppCompatActivity implements View.OnClickListener{
     ArrayList<Ubicacion> ubicacionUsuarios;
     ArrayList<String> obtnUbicacionOtros;
 
-    Button colorContagio, regresoInicio;
+    Double my_longitud, my_latitud;
+
+    Button colorContagio, regresoInicio, irMapa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,13 @@ public class Contagio extends AppCompatActivity implements View.OnClickListener{
 
         colorContagio = (Button) findViewById(R.id.ColorContagio);
         regresoInicio = (Button) findViewById(R.id.RegresoInicio);
+        irMapa = (Button) findViewById(R.id.IrMapa);
+
+        my_longitud = 0.0;
+        my_latitud = 0.0;
 
         regresoInicio.setOnClickListener(this);
+        irMapa.setOnClickListener(this);
         ejecutarAlgoritmo();
 
     }
@@ -79,6 +86,9 @@ public class Contagio extends AppCompatActivity implements View.OnClickListener{
                         Double lat_02 = Double.parseDouble(datos_otros[1]);
                         Double long_01 = Double.parseDouble(datos[0]);
                         Double long_02 = Double.parseDouble(datos_otros[0]);
+
+                        this.my_latitud = lat_01;
+                        this.my_longitud = long_01;
                         terminar(calcular_distancia(lat_01, lat_02, long_01, long_02), datos_otros[2]);
                         encuentro_contagio = true;
                     }
@@ -131,11 +141,24 @@ public class Contagio extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.IrMapa:
+                Intent mapActivity = new Intent(Contagio.this, MapsActivity.class);
+                mapActivity.putExtra("longitud", this.my_longitud);
+                mapActivity.putExtra("latitud", this.my_latitud);
+                startActivity(mapActivity);
+                break;
             case R.id.RegresoInicio:
                 Intent mainActivity = new Intent(Contagio.this, MainActivity.class);
                 mainActivity.putExtra("id",user.getId());
                 startActivity(mainActivity);
                 break;
         }
+    }
+
+    public Double getLatitud(){
+        return this.my_latitud;
+    }
+    public Double getLongitud(){
+        return this.my_longitud;
     }
 }
